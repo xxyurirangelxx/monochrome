@@ -1,57 +1,57 @@
-# Global Auth Gate
+# Portão de Autenticação Global
 
-This document explains the optional server-side login gate and what it implies for your site.
+Este documento explica o portão de login server-side opcional e o que ele implica para o seu site.
 
-## Overview
+## Visão Geral
 
-- When enabled, all HTML routes require login.
-- Login uses Firebase Auth (Google or email) and exchanges a Firebase ID token for a server session.
-- The session is stored in a signed cookie and checked on every request.
+- Quando ativado, todas as rotas HTML exigem login.
+- O login usa Firebase Auth (Google ou email) e troca um token de ID do Firebase por uma sessão no servidor.
+- A sessão é armazenada em um cookie assinado e verificada em cada requisição.
 
-## Where it runs
+## Onde funciona
 
-- The gate runs only in `vite preview` (production-like server).
-- The Vite dev server (`vite dev`) does not enable the gate.
-- Static hosting cannot enforce the gate, because there is no server to verify tokens or set cookies.
+- O portão funciona apenas no `vite preview` (servidor semelhante à produção).
+- O servidor de desenvolvimento do Vite (`vite dev`) não ativa o portão.
+- Hospedagem estática não pode forçar o portão, pois não há servidor para verificar tokens ou definir cookies.
 
-## Flow
+## Fluxo
 
-1. User requests `/` or any HTML route.
-2. Server checks the `mono_session` cookie.
-3. If missing, redirect to `/login`.
-4. Login page signs in with Firebase and POSTs to `/api/auth/login`.
-5. Server verifies the ID token and sets a session cookie.
-6. User is redirected back to `/`.
+1. Usuário acessa `/` ou qualquer rota HTML.
+2. Servidor verifica o cookie `mono_session`.
+3. Se ausente, redireciona para `/login`.
+4. Página de login faz login com Firebase e envia POST para `/api/auth/login`.
+5. Servidor verifica o token de ID e define um cookie de sessão.
+6. Usuário é redirecionado de volta para `/`.
 
-## Configuration
+## Configuração
 
-- `AUTH_ENABLED=true` enables the gate (default is false).
-- `AUTH_SECRET` is required when the gate is enabled. It signs the session cookie.
-- `AUTH_GOOGLE_ENABLED` toggles Google sign-in on `/login` (default true).
-- `AUTH_EMAIL_ENABLED` toggles email/password sign-in on `/login` (default true).
-- `FIREBASE_PROJECT_ID` sets the Firebase project used to verify tokens.
-- `FIREBASE_CONFIG` (JSON) injects config into the login page.
-- `POCKETBASE_URL` hides the custom DB setting field.
-- `SESSION_MAX_AGE` sets cookie lifetime in ms (default 7 days).
+- `AUTH_ENABLED=true` ativa o portão (padrão é false).
+- `AUTH_SECRET` é obrigatório quando o portão está ativado. Ele assina o cookie de sessão.
+- `AUTH_GOOGLE_ENABLED` habilita/desabilita login com Google em `/login` (padrão true).
+- `AUTH_EMAIL_ENABLED` habilita/desabilita login com email/senha em `/login` (padrão true).
+- `FIREBASE_PROJECT_ID` define o projeto Firebase usado para verificar tokens.
+- `FIREBASE_CONFIG` (JSON) injeta configuração na página de login.
+- `POCKETBASE_URL` oculta o campo de configuração de BD customizado nas configurações.
+- `SESSION_MAX_AGE` define tempo de vida do cookie em ms (padrão 7 dias).
 
-## Implications for the site
+## Implicações para o site
 
-- Requires a server runtime. Pure static hosting will not force login.
-- Unauthenticated requests to non-HTML assets return 401.
-- `/login` and `/login.html` remain accessible to start the flow.
-- Logging out clears the session and redirects to `/login`.
-- Authenticated visits to `/login` redirect back to `/`.
+- Requer um runtime de servidor. Hospedagem estática pura não forçará login.
+- Requisições não autenticadas para assets não-HTML retornam 401.
+- `/login` e `/login.html` permanecem acessíveis para iniciar o fluxo.
+- Fazer logout limpa a sessão e redireciona para `/login`.
+- Visitas autenticadas a `/login` redirecionam de volta para `/`.
 
-## Enable (Docker)
+## Ativar (Docker)
 
 1. `cp .env.example .env`
-2. Set `AUTH_ENABLED=true` and `AUTH_SECRET=...`
-3. Optionally set `FIREBASE_CONFIG` and `FIREBASE_PROJECT_ID`
+2. Defina `AUTH_ENABLED=true` e `AUTH_SECRET=...`
+3. Opcionalmente defina `FIREBASE_CONFIG` e `FIREBASE_PROJECT_ID`
 4. `docker compose up -d`
-5. Visit `http://localhost:3000`
+5. Acesse `http://localhost:8080`
 
-## Enable (local preview)
+## Ativar (preview local)
 
 1. `npm run build`
-2. Set env vars in your shell or `.env`
+2. Defina variáveis de ambiente no seu shell ou no `.env`
 3. `npm run preview`

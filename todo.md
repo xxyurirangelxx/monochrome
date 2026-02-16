@@ -1,8 +1,8 @@
-# Feature Requests
+# Pedidos de Funcionalidades
 
-Sorted by ease of implementation (easiest to hardest):
+Ordenados por facilidade de implementação (mais fácil para mais difícil):
 
-- [ ] effects like reverb, delay, and bitcrushing
-- [ ] Customizable EQ: Allow users to change the number of EQ bands and their range (-30 to 30), with a drag-to-adjust interface similar to FL Studio's velocity editor
+- [ ] Efeitos como reverb, delay e bitcrushing
+- [ ] EQ Personalizável: Permitir que usuários alterem o número de bandas do EQ e seu alcance (-30 a 30), com interface de arrastar para ajustar similar ao editor de velocidade do FL Studio
 
-[ ] SoundCloud support: Integrate SoundCloud through SoundCloak
+[ ] Suporte a SoundCloud: Integrar SoundCloud através do SoundCloak

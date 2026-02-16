@@ -30,7 +30,7 @@ export default function authGatePlugin() {
         },
 
         configurePreviewServer(server) {
-            const AUTH_ENABLED = (env.AUTH_ENABLED ?? 'false') !== 'false';
+            const AUTH_ENABLED = !['false', '0', '', undefined].includes(env.AUTH_ENABLED);
             const FIREBASE_CONFIG = env.FIREBASE_CONFIG;
             const POCKETBASE_URL = env.POCKETBASE_URL;
             const AUTH_GOOGLE_ENABLED = env.AUTH_GOOGLE_ENABLED;

@@ -1,0 +1,115 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-02-16T15:11:00-03:00",
+    "name": "Monochrome Music Player",
+    "author": "monochrome@monochrome.tf",
+    "description": "App de musica open-source, que respeita sua privacidade e sem anuncios. Inclui PocketBase como banco de dados self-hosted.",
+    "features": null,
+    "docker_images": {
+        "Node.js 22": "ghcr.io\/parkervcp\/yolks:nodejs_22",
+        "Node.js 21": "ghcr.io\/parkervcp\/yolks:nodejs_21",
+        "Node.js 20": "ghcr.io\/parkervcp\/yolks:nodejs_20",
+        "Node.js 18": "ghcr.io\/parkervcp\/yolks:nodejs_18"
+    },
+    "file_denylist": [],
+    "startup": "bash start.sh",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Monochrome esta rodando\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# Monochrome Music Player - Script de Instalacao\r\n#\r\n# Server Files: \/mnt\/server\r\napt update\r\napt install -y git curl jq file unzip\r\n\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\nif [ -z \"${GIT_ADDRESS}\" ]; then\r\n    echo -e \"ERRO: Nenhum repositorio Git configurado!\"\r\n    echo -e \"Va em Startup e preencha o campo 'Repositorio Git' com a URL do seu fork.\"\r\n    exit 1\r\nfi\r\n\r\nif [[ ${GIT_ADDRESS} != *.git ]]; then\r\n    GIT_ADDRESS=${GIT_ADDRESS}.git\r\nfi\r\n\r\nif [ \"$(ls -A \/mnt\/server)\" ]; then\r\n    echo -e \"Diretorio nao esta vazio.\"\r\n    if [ -d .git ]; then\r\n        echo -e \"Atualizando repositorio...\"\r\n        git pull || true\r\n    else\r\n        echo -e \"Arquivos encontrados sem .git - pulando clone.\"\r\n    fi\r\nelse\r\n    echo -e \"Clonando repositorio...\"\r\n    git clone ${GIT_ADDRESS} .\r\nfi\r\n\r\necho \"Instalando dependencias Node.js...\"\r\nif [ -f \/mnt\/server\/package.json ]; then\r\n    \/usr\/local\/bin\/npm install\r\nfi\r\n\r\necho \"Fazendo build do frontend...\"\r\n\/usr\/local\/bin\/npx vite build || true\r\n\r\necho -e \"Instalacao concluida!\"",
+            "container": "node:22-bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Repositorio Git",
+            "description": "URL do SEU repositorio Git (seu fork do Monochrome). Ex: https:\/\/github.com\/SEU_USUARIO\/monochrome",
+            "env_variable": "GIT_ADDRESS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Porta do Frontend",
+            "description": "Porta em que o frontend Monochrome sera servido.",
+            "env_variable": "MONOCHROME_PORT",
+            "default_value": "8080",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:5",
+            "field_type": "text"
+        },
+        {
+            "name": "Porta do PocketBase",
+            "description": "Porta em que o banco de dados PocketBase sera servido.",
+            "env_variable": "POCKETBASE_PORT",
+            "default_value": "7284",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:5",
+            "field_type": "text"
+        },
+        {
+            "name": "Versao do PocketBase",
+            "description": "Versao do PocketBase para baixar automaticamente.",
+            "env_variable": "POCKETBASE_VERSION",
+            "default_value": "0.25.9",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:16",
+            "field_type": "text"
+        },
+        {
+            "name": "URL do PocketBase",
+            "description": "URL do PocketBase (normalmente http:\/\/localhost:PORTA).",
+            "env_variable": "POCKETBASE_URL",
+            "default_value": "http:\/\/localhost:7284",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Autenticacao Ativada",
+            "description": "Ativar portao de autenticacao (requer Firebase configurado).",
+            "env_variable": "AUTH_ENABLED",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        },
+        {
+            "name": "Segredo de Autenticacao",
+            "description": "String secreta para assinar cookies de sessao.",
+            "env_variable": "AUTH_SECRET",
+            "default_value": "mude-para-uma-string-aleatoria",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Fuso Horario",
+            "description": "Fuso horario do servidor (ex: America\/Sao_Paulo).",
+            "env_variable": "TZ",
+            "default_value": "America\/Sao_Paulo",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        }
+    ]
+}

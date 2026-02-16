@@ -1,73 +1,73 @@
-# Docker Deployment Guide
+# Guia de Deploy com Docker
 
-## Quick Start
+## Início Rápido
 
-### Monochrome Only
+### Apenas Monochrome
 
 ```bash
 docker compose up -d
 ```
 
-Visit `http://localhost:3000`
+Acesse `http://localhost:8080`
 
-### With PocketBase
+### Com PocketBase
 
 ```bash
 cp .env.example .env
-# Edit .env -- set PB_ADMIN_EMAIL and PB_ADMIN_PASSWORD
+# Edite .env -- defina PB_ADMIN_EMAIL e PB_ADMIN_PASSWORD
 docker compose --profile pocketbase up -d
 ```
 
-- Monochrome: `http://localhost:3000`
-- PocketBase admin: `http://localhost:8090/_/`
+- Monochrome: `http://localhost:8080`
+- Admin PocketBase: `http://localhost:7284/_/`
 
-Configure PocketBase collections per [self-hosted-database.md](self-hosted-database.md).
+Configure as coleções do PocketBase conforme [banco-de-dados-self-hosted.md](banco-de-dados-self-hosted.md).
 
-### Development
+### Desenvolvimento
 
 ```bash
 docker compose --profile dev up -d
 ```
 
-Visit `http://localhost:5173` (hot-reload enabled)
+Acesse `http://localhost:8080` (hot-reload ativado)
 
 ---
 
-## How It Works
+## Como Funciona
 
-### Profiles
+### Perfis
 
-Docker Compose [profiles](https://docs.docker.com/compose/how-tos/profiles/) control which services start. A service with no profile always runs. A service with a profile only runs when that profile is activated.
+[Perfis](https://docs.docker.com/compose/how-tos/profiles/) do Docker Compose controlam quais serviços iniciam. Um serviço sem perfil sempre inicia. Um serviço com perfil só inicia quando aquele perfil é ativado.
 
-| Command                                                   | What starts                          |
-| --------------------------------------------------------- | ------------------------------------ |
-| `docker compose up -d`                                    | Monochrome                           |
-| `docker compose --profile pocketbase up -d`               | Monochrome + PocketBase              |
-| `docker compose --profile dev up -d`                      | Monochrome + Dev server              |
-| `docker compose --profile dev --profile pocketbase up -d` | Monochrome + Dev server + PocketBase |
+| Comando                                                   | O que inicia                              |
+| --------------------------------------------------------- | ----------------------------------------- |
+| `docker compose up -d`                                    | Monochrome                                |
+| `docker compose --profile pocketbase up -d`               | Monochrome + PocketBase                   |
+| `docker compose --profile dev up -d`                      | Monochrome + Servidor de desenvolvimento  |
+| `docker compose --profile dev --profile pocketbase up -d` | Monochrome + Dev + PocketBase             |
 
-In `docker-compose.yml`, it looks like this:
+No `docker-compose.yml`, fica assim:
 
 ```yaml
 services:
-    monochrome: # no profile -- always starts
+    monochrome: # sem perfil -- sempre inicia
 
     pocketbase:
-        profiles: ['pocketbase'] # opt-in
+        profiles: ['pocketbase'] # opcional
 
     monochrome-dev:
-        profiles: ['dev'] # opt-in
+        profiles: ['dev'] # opcional
 ```
 
-### Override File
+### Arquivo Override
 
-Docker Compose automatically merges `docker-compose.override.yml` into `docker-compose.yml` if it exists in the same directory. No flags needed.
+O Docker Compose automaticamente mescla o `docker-compose.override.yml` com o `docker-compose.yml` se ele existir no mesmo diretório. Não precisa de flags.
 
-This is useful for forks that need to add custom services or configuration (Traefik labels, extra containers, custom networks) without modifying the base `docker-compose.yml`.
+Isso é útil para forks que precisam adicionar serviços personalizados ou configurações (labels do Traefik, containers extras, redes customizadas) sem modificar o `docker-compose.yml` base.
 
-The override file does not exist in the upstream repo, don't search it!
+O arquivo override não existe no repositório upstream, não procure por ele!
 
-**Example** -- adding Traefik labels to PocketBase in your fork:
+**Exemplo** -- adicionando labels do Traefik ao PocketBase no seu fork:
 
 ```yaml
 # docker-compose.override.yml
@@ -75,25 +75,25 @@ services:
     pocketbase:
         labels:
             - traefik.enable=true
-            - traefik.http.routers.pocketbase.rule=Host(`pocketbase.example.com`)
+            - traefik.http.routers.pocketbase.rule=Host(`pocketbase.exemplo.com`)
             - traefik.http.routers.pocketbase.entrypoints=websecure
             - traefik.http.routers.pocketbase.tls.certresolver=letsencrypt
             - traefik.http.services.pocketbase.loadbalancer.server.port=8090
         networks:
-            - proxy-network
+            - rede-proxy
 
 networks:
-    proxy-network:
+    rede-proxy:
         external: true
 ```
 
-**Example** -- adding a custom service in your fork:
+**Exemplo** -- adicionando um serviço personalizado no seu fork:
 
 ```yaml
 # docker-compose.override.yml
 services:
-    my-custom-api:
-        image: my-api:latest
+    minha-api-customizada:
+        image: minha-api:latest
         restart: unless-stopped
         ports:
             - '4000:4000'
@@ -101,87 +101,87 @@ services:
             - monochrome-network
 ```
 
-Override files can extend existing services (add labels, env vars, networks) and define entirely new services. See the [Docker docs](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/) for the full merge behavior.
+Arquivos override podem estender serviços existentes (adicionar labels, variáveis de ambiente, redes) e definir serviços totalmente novos. Veja a [documentação do Docker](https://docs.docker.com/compose/how-tos/multiple-compose-files/merge/) para o comportamento completo de mesclagem.
 
 ---
 
-## Portainer Deployment
+## Deploy no Portainer
 
-Portainer can deploy directly from your GitHub fork with auto-updates on push.
+O Portainer pode fazer deploy diretamente do seu fork no GitHub com atualizações automáticas a cada push.
 
-### Setup
+### Configuração
 
-1. In Portainer, go to **Stacks > Add Stack > Repository**
-2. Enter your fork URL and branch
-3. Compose path: `docker-compose.yml`
-4. If your fork has a `docker-compose.override.yml`, Portainer loads it automatically
-5. Under **Environment variables**, add:
-    - `COMPOSE_PROFILES=pocketbase` (to enable PocketBase -- omit if not needed)
-    - `PB_ADMIN_EMAIL=your@email.com`
-    - `PB_ADMIN_PASSWORD=your_secure_password`
-    - Any other variables from `.env.example`
-6. Enable **GitOps updates** to auto-redeploy on push
+1. No Portainer, vá em **Stacks > Add Stack > Repository**
+2. Insira a URL do seu fork e a branch
+3. Caminho do Compose: `docker-compose.yml`
+4. Se o seu fork tiver um `docker-compose.override.yml`, o Portainer carrega automaticamente
+5. Em **Variáveis de ambiente**, adicione:
+    - `COMPOSE_PROFILES=pocketbase` (para habilitar o PocketBase -- omita se não precisar)
+    - `PB_ADMIN_EMAIL=seu@email.com`
+    - `PB_ADMIN_PASSWORD=sua_senha_segura`
+    - Qualquer outra variável do `.env.example`
+6. Ative **Atualizações GitOps** para re-deploy automático a cada push
 
-> **Tip:** `COMPOSE_PROFILES` is a built-in Docker Compose variable. Setting it to `pocketbase` is equivalent to passing `--profile pocketbase` on the command line.
+> **Dica:** `COMPOSE_PROFILES` é uma variável nativa do Docker Compose. Defini-la como `pocketbase` é equivalente a passar `--profile pocketbase` na linha de comando.
 
-> **Warning:** The `dev` profile is for **local development only**. It uses volume mounts to enable hot-reload, which requires the source code to be present on the host machine. Do **not** include `dev` in `COMPOSE_PROFILES` on Portainer deployments from GitHub — it will fail because there's no local source code to mount.
+> **Aviso:** O perfil `dev` é apenas para **desenvolvimento local**. Ele usa montagem de volumes para hot-reload, o que requer que o código-fonte esteja presente na máquina host. **Não** inclua `dev` em `COMPOSE_PROFILES` em deploys do Portainer via GitHub — vai falhar porque não há código-fonte local para montar.
 
-### Fork Workflow
+### Fluxo com Fork
 
-To add custom services (Traefik, monitoring, etc.) to your fork:
+Para adicionar serviços personalizados (Traefik, monitoramento, etc.) ao seu fork:
 
-1. Create `docker-compose.override.yml` in your fork
-2. Remove the `docker-compose.override.yml` line from `.gitignore`
-3. Commit both changes to your fork
-4. Portainer will auto-load the override file alongside the base compose
+1. Crie o `docker-compose.override.yml` no seu fork
+2. Remova a linha `docker-compose.override.yml` do `.gitignore`
+3. Faça commit das duas mudanças no seu fork
+4. O Portainer carregará automaticamente o arquivo override junto com o compose base
 
-When pulling updates from upstream (`git pull upstream main`), there are no conflicts -- the upstream repo does not have an override file.
+Ao puxar atualizações do upstream (`git pull upstream main`), não há conflitos -- o repositório upstream não tem um arquivo override.
 
 ---
 
-## Common Operations
+## Operações Comuns
 
 ```bash
-# View logs
+# Ver logs
 docker compose logs -f
 docker compose logs -f pocketbase
 
-# Rebuild after code changes
+# Rebuildar após mudanças no código
 docker compose up -d --build
 
-# Stop everything (include all profiles you started)
+# Parar tudo (inclua todos os perfis que você iniciou)
 docker compose --profile pocketbase down
 
-# Stop and remove volumes (data loss!)
+# Parar e remover volumes (perde dados!)
 docker compose --profile pocketbase down -v
 
-# Backup PocketBase data
+# Backup dos dados do PocketBase
 docker compose exec pocketbase tar czf - /pb_data > backup.tar.gz
 
-# Restore PocketBase data
+# Restaurar dados do PocketBase
 docker compose exec pocketbase tar xzf - -C / < backup.tar.gz
 ```
 
 ---
 
-## Architecture
+## Arquitetura
 
-### Production (Dockerfile)
+### Produção (Dockerfile)
 
-Node.js Alpine image (multi-arch: amd64 + arm64). Installs dependencies, runs `vite build`, then serves the built files with `vite preview` on port 4173.
+Imagem Node.js Alpine (multi-arch: amd64 + arm64). Instala dependências, roda `vite build`, depois serve os arquivos compilados com `vite preview` na porta 8080.
 
-### Development (Dockerfile.dev)
+### Desenvolvimento (Dockerfile.dev)
 
-Node.js Alpine image with source code mounted as a volume for hot-reload.
+Imagem Node.js Alpine com código-fonte montado como volume para hot-reload.
 
-### Files
+### Arquivos
 
-| File                          | Purpose                       | In upstream repo |
-| ----------------------------- | ----------------------------- | :--------------: |
-| `docker-compose.yml`          | All services with profiles    |       Yes        |
-| `docker-compose.override.yml` | Fork-specific customizations  |        No        |
-| `.env.example`                | Environment variable template |       Yes        |
-| `.env`                        | Your local configuration      |        No        |
-| `Dockerfile`                  | Production build              |       Yes        |
-| `Dockerfile.dev`              | Development build             |       Yes        |
-| `.dockerignore`               | Build context exclusions      |       Yes        |
+| Arquivo                       | Propósito                         | No repositório upstream |
+| ----------------------------- | --------------------------------- | :---------------------: |
+| `docker-compose.yml`          | Todos os serviços com perfis      |           Sim           |
+| `docker-compose.override.yml` | Personalizações do fork           |           Não           |
+| `.env.example`                | Template de variáveis de ambiente |           Sim           |
+| `.env`                        | Sua configuração local            |           Não           |
+| `Dockerfile`                  | Build de produção                 |           Sim           |
+| `Dockerfile.dev`              | Build de desenvolvimento          |           Sim           |
+| `.dockerignore`               | Exclusões do contexto de build    |           Sim           |

@@ -1,12 +1,12 @@
 services:
-    # Production frontend -- always runs
+    # Frontend de produção -- sempre inicia
     monochrome:
         build:
             context: .
             dockerfile: Dockerfile
         container_name: monochrome
         ports:
-            - '${MONOCHROME_PORT:-3000}:4173'
+            - '${MONOCHROME_PORT:-8080}:8080'
         environment:
             AUTH_ENABLED: ${AUTH_ENABLED:-false}
             AUTH_SECRET: ${AUTH_SECRET:-}
@@ -18,13 +18,13 @@ services:
         networks:
             - monochrome-network
         healthcheck:
-            test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:4173/health']
+            test: [ 'CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:8080/health' ]
             interval: 30s
             timeout: 3s
             retries: 3
             start_period: 5s
 
-    # PocketBase backend -- only starts with: docker compose --profile pocketbase up -d
+    # Backend PocketBase -- só inicia com: docker compose --profile pocketbase up -d
     pocketbase:
         image: ghcr.io/muchobien/pocketbase:latest
         container_name: monochrome-pocketbase
@@ -34,16 +34,16 @@ services:
         environment:
             PB_ADMIN_EMAIL: ${PB_ADMIN_EMAIL:-admin@example.com}
             PB_ADMIN_PASSWORD: ${PB_ADMIN_PASSWORD:-changeme}
-            TZ: ${TZ:-UTC}
+            TZ: ${TZ:-America/Sao_Paulo}
         ports:
-            - '${POCKETBASE_PORT:-8090}:8090'
+            - '${POCKETBASE_PORT:-7284}:8090'
         volumes:
             - pb_data:/pb_data
             - pb_public:/pb_public
             - pb_hooks:/pb_hooks
         command: serve --http=0.0.0.0:8090
         healthcheck:
-            test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:8090/api/health']
+            test: [ 'CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:8090/api/health' ]
             interval: 30s
             timeout: 10s
             retries: 3
@@ -51,7 +51,7 @@ services:
         networks:
             - monochrome-network
 
-    # Development server -- only starts with: docker compose --profile dev up -d
+    # Servidor de desenvolvimento -- só inicia com: docker compose --profile dev up -d
     monochrome-dev:
         build:
             context: .
@@ -60,11 +60,11 @@ services:
         profiles:
             - dev
         ports:
-            - '${MONOCHROME_DEV_PORT:-5173}:5173'
+            - '${MONOCHROME_DEV_PORT:-8080}:8080'
         volumes:
             - .:/app
             - /app/node_modules
-        command: npm run dev -- --host 0.0.0.0
+        command: npm run dev -- --host 0.0.0.0 --port 8080
         networks:
             - monochrome-network
 

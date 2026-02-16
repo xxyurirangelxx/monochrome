@@ -1,95 +1,95 @@
-# Monochrome Instances
+# Instâncias do Monochrome
 
-This document lists public instances of Monochrome that you can use. Instances are community-hosted versions of Monochrome that provide access to the application.
-
----
-
-## Official Instance
-
-The official Monochrome instance maintained by the core team:
-
-| URL                                                    | Status   | Notes            |
-| ------------------------------------------------------ | -------- | ---------------- |
-| [monochrome.tf](https://monochrome.tf)                 | Official | Primary instance |
-| [monochrome.samidy.com](https://monochrome.samidy.com) | Official | Secondary mirror |
+Este documento lista instâncias públicas do Monochrome que você pode usar. Instâncias são versões do Monochrome hospedadas pela comunidade que fornecem acesso à aplicação.
 
 ---
 
-## Community Instances
+## Instância Oficial
 
-### UI-Only Instances
+A instância oficial do Monochrome mantida pelo time principal:
 
-These instances provide the tidal-ui web interface, not monochrome:
-
-| Provider            | URL                                            | Status    |
-| ------------------- | ---------------------------------------------- | --------- |
-| **bini (tidal-ui)** | [music.binimum.org](https://music.binimum.org) | Community |
-| **squid.wtf**       | [tidal.squid.wtf](https://tidal.squid.wtf)     | Community |
-| **QQDL**            | [tidal.qqdl.site](https://tidal.qqdl.site/)    | Community |
+| URL                                                    | Status   | Notas              |
+| ------------------------------------------------------ | -------- | ------------------ |
+| [monochrome.tf](https://monochrome.tf)                 | Oficial  | Instância primária |
+| [monochrome.samidy.com](https://monochrome.samidy.com) | Oficial  | Mirror secundário  |
 
 ---
 
-## API Instances
+## Instâncias da Comunidade
 
-Monochrome uses the Hi-Fi API under the hood. These are available API endpoints that can be used with Monochrome or other Hi-Fi based applications:
+### Instâncias Apenas UI
 
-### Official & Community APIs
+Estas instâncias fornecem a interface web tidal-ui, não o monochrome:
 
-| Provider          | URL                                 | Notes                                                      |
-| ----------------- | ----------------------------------- | ---------------------------------------------------------- |
-| **Monochrome**    | `https://monochrome-api.samidy.com` | Official API - [See Note](https://rentry.co/monochromeapi) |
-|                   | `https://api.monochrome.tf`         | Official API                                               |
-|                   | `https://arran.monochrome.tf`       | Official API                                               |
-| **squid.wtf**     | `https://triton.squid.wtf`          | Community hosted                                           |
-| **Lucida (QQDL)** | `https://wolf.qqdl.site`            | Community hosted                                           |
-|                   | `https://maus.qqdl.site`            | Community hosted                                           |
-|                   | `https://vogel.qqdl.site`           | Community hosted                                           |
-|                   | `https://katze.qqdl.site`           | Community hosted                                           |
-|                   | `https://hund.qqdl.site`            | Community hosted                                           |
-| **Spotisaver**    | `https://hifi-one.spotisaver.net`   | Community hosted                                           |
-|                   | `https://hifi-two.spotisaver.net`   | Community hosted                                           |
-| **Kinoplus**      | `https://tidal.kinoplus.online`     | Community hosted                                           |
-| **Binimum**       | `https://tidal-api.binimum.org`     | Community hosted                                           |
+| Provedor            | URL                                            | Status      |
+| ------------------- | ---------------------------------------------- | ----------- |
+| **bini (tidal-ui)** | [music.binimum.org](https://music.binimum.org) | Comunidade  |
+| **squid.wtf**       | [tidal.squid.wtf](https://tidal.squid.wtf)     | Comunidade  |
+| **QQDL**            | [tidal.qqdl.site](https://tidal.qqdl.site/)    | Comunidade  |
 
 ---
 
-## Instance Health
+## Instâncias de API
 
-To check the current status of instances:
+O Monochrome usa a API Hi-Fi internamente. Estes são endpoints de API disponíveis que podem ser usados com o Monochrome ou outras aplicações baseadas no Hi-Fi:
 
-1. Visit the instance URL in your browser
-2. Check if the page loads correctly
-3. Try playing a track to verify API connectivity
+### APIs Oficiais e da Comunidade
 
-> **Note:** Community instances may have varying uptime and performance. If one doesn't work, try another.
-
----
-
-## Adding Your Instance
-
-Want to add your instance to this list?
-
-1. Ensure your instance is stable and publicly accessible
-2. Open a pull request with your instance details
-3. Include:
-    - Instance URL
-    - Provider name
-    - Type (UI/API/Both)
-    - Brief description
+| Provedor          | URL                                 | Notas                                                         |
+| ----------------- | ----------------------------------- | ------------------------------------------------------------- |
+| **Monochrome**    | `https://monochrome-api.samidy.com` | API Oficial - [Veja Nota](https://rentry.co/monochromeapi)    |
+|                   | `https://api.monochrome.tf`         | API Oficial                                                   |
+|                   | `https://arran.monochrome.tf`       | API Oficial                                                   |
+| **squid.wtf**     | `https://triton.squid.wtf`          | Hospedagem comunitária                                        |
+| **Lucida (QQDL)** | `https://wolf.qqdl.site`            | Hospedagem comunitária                                        |
+|                   | `https://maus.qqdl.site`            | Hospedagem comunitária                                        |
+|                   | `https://vogel.qqdl.site`           | Hospedagem comunitária                                        |
+|                   | `https://katze.qqdl.site`           | Hospedagem comunitária                                        |
+|                   | `https://hund.qqdl.site`            | Hospedagem comunitária                                        |
+| **Spotisaver**    | `https://hifi-one.spotisaver.net`   | Hospedagem comunitária                                        |
+|                   | `https://hifi-two.spotisaver.net`   | Hospedagem comunitária                                        |
+| **Kinoplus**      | `https://tidal.kinoplus.online`     | Hospedagem comunitária                                        |
+| **Binimum**       | `https://tidal-api.binimum.org`     | Hospedagem comunitária                                        |
 
 ---
 
-## Disclaimer
+## Saúde das Instâncias
 
-- Community instances are not affiliated with the official Monochrome project
-- Use at your own risk
-- Instance availability and performance may vary
-- The official project does not guarantee uptime for community instances
+Para verificar o status atual das instâncias:
+
+1. Acesse a URL da instância no seu navegador
+2. Verifique se a página carrega corretamente
+3. Tente tocar uma faixa para verificar a conectividade da API
+
+> **Nota:** Instâncias da comunidade podem ter disponibilidade e desempenho variados. Se uma não funcionar, tente outra.
 
 ---
 
-## Related Resources
+## Adicionando Sua Instância
 
-- [Self-Hosting Guide](self-hosted-database.md) - Host your own instance
-- [Contributing Guide](CONTRIBUTE.md) - Contribute to the project
-- [Main Repository](https://github.com/SamidyFR/monochrome) - Source code
+Quer adicionar sua instância a esta lista?
+
+1. Garanta que sua instância está estável e publicamente acessível
+2. Abra um pull request com os detalhes da sua instância
+3. Inclua:
+    - URL da instância
+    - Nome do provedor
+    - Tipo (UI/API/Ambos)
+    - Descrição breve
+
+---
+
+## Aviso Legal
+
+- Instâncias da comunidade não são afiliadas ao projeto oficial do Monochrome
+- Use por sua conta e risco
+- Disponibilidade e desempenho das instâncias podem variar
+- O projeto oficial não garante disponibilidade para instâncias da comunidade
+
+---
+
+## Recursos Relacionados
+
+- [Guia de Self-Hosting](self-hosted-database.md) - Hospede sua própria instância
+- [Guia de Contribuição](CONTRIBUTE.md) - Contribua para o projeto
+- [Repositório Principal](https://github.com/SamidyFR/monochrome) - Código fonte

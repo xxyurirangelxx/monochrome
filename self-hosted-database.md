@@ -1,240 +1,253 @@
-# Self-Hosted Database Setup Guide
+# Guia de Configuração do Banco de Dados Self-Hosted
 
-This guide will show you how to set up your own authentication system and database for Monochrome accounts.
+Este guia mostra como configurar seu próprio sistema de autenticação e banco de dados para contas do Monochrome.
 
-> ⚠️ **Note:** You will need to enter the same configurations on each device where you want to use your custom database.
-
----
-
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Step 1: Setup Firebase Authentication](#step-1-setup-firebase-authentication)
-- [Step 2: PocketBase Setup](#step-2-pocketbase-setup)
-- [Step 3: Cloudflare Tunnel Setup](#step-3-cloudflare-tunnel-setup)
-- [Step 4: Getting Configurations](#step-4-getting-configurations)
-- [Step 5: Linking with Monochrome](#step-5-linking-with-monochrome)
-- [Troubleshooting](#troubleshooting)
+> ⚠️ **Nota:** Você precisará inserir as mesmas configurações em cada dispositivo onde deseja usar seu banco de dados personalizado.
 
 ---
 
-## Prerequisites
+## Índice
 
-Before starting, ensure you have:
-
-- A computer to host the database (can also use a VPS)
-- A [Firebase](https://firebase.google.com) account (for authentication only)
-- [PocketBase](https://pocketbase.io) installed on your host machine
-- A domain name (free options available at [DigitalPlat](https://domain.digitalplat.org/))
-
-> 💡 **This guide assumes you're setting everything up on your local machine. The process is identical for a VPS.**
-
----
-
-## Step 1: Setup Firebase Authentication
-
-### 1.1 Create a Firebase Project
-
-1. Go to the [Firebase Console](https://console.firebase.google.com)
-2. Create a new project
-3. On the left sidebar, click **Build** → **Authentication**
-4. Click **Get Started**
-
-### 1.2 Enable Sign-in Methods
-
-1. Go to the **Sign-in method** tab
-2. Enable **Google** and **Email** providers
-3. Set your project support email
-4. Click **Save**
-
-### 1.3 Authorize Your Domain
-
-Firebase requires authorized domains for authentication:
-
-1. In **Authentication** → **Settings** → **Authorized domains**
-2. Click **Add domain**
-3. Add your hosting domain:
-    - If using the official Monochrome site: `monochrome.samidy.com` or your preferred mirror (e.g., `monochrome.tf`)
-    - If self-hosting the website: add your custom domain
-
-> 💡 `localhost` is usually added by default for local testing. You can leave this enabled.
+- [Pré-requisitos](#pré-requisitos)
+- [Passo 1: Configurar Autenticação Firebase](#passo-1-configurar-autenticação-firebase)
+- [Passo 2: Configuração do PocketBase](#passo-2-configuração-do-pocketbase)
+- [Passo 3: Configuração do Túnel Cloudflare](#passo-3-configuração-do-túnel-cloudflare)
+- [Passo 4: Obtendo as Configurações](#passo-4-obtendo-as-configurações)
+- [Passo 5: Vinculando ao Monochrome](#passo-5-vinculando-ao-monochrome)
+- [Solução de Problemas](#solução-de-problemas)
 
 ---
 
-## Step 2: PocketBase Setup
+## Pré-requisitos
 
-### 2.1 Install and Configure
+Antes de começar, certifique-se de ter:
 
-1. Download [PocketBase](https://pocketbase.io) and follow their setup guide
-2. Access the PocketBase Admin UI (typically at `http://127.0.0.1:8090/_/`)
+- Um computador para hospedar o banco de dados (também pode usar um VPS)
+- Uma conta no [Firebase](https://firebase.google.com) (apenas para autenticação)
+- [PocketBase](https://pocketbase.io) instalado na sua máquina host
+- Um nome de domínio (opções gratuitas disponíveis no [DigitalPlat](https://domain.digitalplat.org/))
 
-### 2.2 Create Collections
-
-Create two collections: `DB_users` and `public_playlists` (do NOT use the default "users" collection)
-
-#### DB_users Fields
-
-| Field Name          | Type       | Description               |
-| ------------------- | ---------- | ------------------------- |
-| `firebase_id`       | Plain Text | Links to Firebase user ID |
-| `lastUpdated`       | Number     | Timestamp of last update  |
-| `history`           | JSON       | User listening history    |
-| `library`           | JSON       | User's saved library      |
-| `user_playlists`    | JSON       | User's custom playlists   |
-| `user_folders`      | JSON       | User's playlist folders   |
-| `deleted_playlists` | JSON       | Soft-deleted playlists    |
-
-#### public_playlists Fields
-
-| Field Name       | Type       | Description                |
-| ---------------- | ---------- | -------------------------- |
-| `firebase_id`    | Plain Text | Creator's Firebase user ID |
-| `addedAt`        | Number     | Creation timestamp         |
-| `numberOfTracks` | Number     | Total track count          |
-| `OriginalId`     | Plain Text | Original playlist ID       |
-| `publishedAt`    | Number     | Publication timestamp      |
-| `title`          | Plain Text | Playlist title             |
-| `uid`            | Plain Text | Unique identifier          |
-| `uuid`           | Plain Text | UUID for the playlist      |
-| `tracks`         | JSON       | Playlist tracks data       |
-| `image`          | URL        | Playlist cover image       |
-
-### 2.3 Configure API Rules
-
-Set the API rules for both collections to allow read/write access:
-
-**DB_users API Rules:**
-
-- List/Search Rule: `firebase_id = @request.query.f_id`
-- View Rule: `firebase_id = @request.query.f_id`
-- Create Rule: `firebase_id = @request.query.f_id`
-- Update Rule: `firebase_id = @request.query.f_id`
-- Delete Rule: `firebase_id = @request.query.f_id`
-
-**public_playlists API Rules:**
-
-- List/Search Rule: `uuid = @request.query.p_id`
-- View Rule: `id != ""`
-- Create Rule: `firebase_id = @request.query.f_id`
-- Update Rule: `uid = @request.query.f_id`
-- Delete Rule: `uid = @request.query.f_id`
+> 💡 **Este guia assume que você está configurando tudo na sua máquina local. O processo é idêntico para um VPS.**
 
 ---
 
-## Step 3: Cloudflare Tunnel Setup
+## Passo 1: Configurar Autenticação Firebase
 
-To make your PocketBase instance accessible from other devices securely:
+### 1.1 Criar um Projeto Firebase
 
-### 3.1 Create a Cloudflare Account
+1. Acesse o [Console Firebase](https://console.firebase.google.com)
+2. Crie um novo projeto
+3. Na barra lateral esquerda, clique em **Build** → **Authentication**
+4. Clique em **Get Started**
 
-1. Sign up at the [Cloudflare Dashboard](https://dash.cloudflare.com)
-2. Set up **Zero Trust** (free plan available)
+### 1.2 Habilitar Métodos de Login
 
-### 3.2 Create a Tunnel
+1. Vá na aba **Sign-in method**
+2. Habilite os provedores **Google** e **Email**
+3. Configure o email de suporte do projeto
+4. Clique em **Save**
 
-1. In the Cloudflare dashboard, go to **Zero Trust** → **Networks** → **Connectors**
-2. Select **Cloudflared**
-3. Give your tunnel a name (e.g., `monochrome-database`)
-4. Follow the installation guide for your operating system
+### 1.3 Autorizar Seu Domínio
 
-### 3.3 Configure Hostname
+O Firebase exige domínios autorizados para autenticação:
 
-1. In the tunnel setup, add a **Public Hostname**
-2. **Subdomain:** Choose a subdomain (e.g., `db` for `db.yourdomain.com`)
-3. **Domain:** Select your domain from the dropdown
-4. **Service:** Select **HTTP**
-5. **URL:** Enter your PocketBase local address (e.g., `127.0.0.1:8090`)
+1. Em **Authentication** → **Settings** → **Authorized domains**
+2. Clique em **Add domain**
+3. Adicione seu domínio de hospedagem:
+    - Se usando o site oficial do Monochrome: `monochrome.samidy.com` ou seu mirror preferido (ex: `monochrome.tf`)
+    - Se fazendo self-hosting do site: adicione seu domínio personalizado
 
-> ⚠️ **Note:** Cloudflare requires a valid domain. Free `.pages.dev` domains won't work for this. Get a free domain at [DigitalPlat](https://domain.digitalplat.org/).
-
-6. Save the configuration
-
-Your database will now be accessible at your chosen domain!
+> 💡 `localhost` geralmente é adicionado por padrão para testes locais. Pode deixar habilitado.
 
 ---
 
-## Step 4: Getting Configurations
+## Passo 2: Configuração do PocketBase
 
-### 4.1 Get Firebase Configuration
+### O que é PocketBase?
 
-1. In the [Firebase Console](https://console.firebase.google.com), open your project
-2. Click the **⚙️ Settings** icon next to "Project Overview"
-3. Select **Project settings**
-4. In the **General** tab, scroll to "Your apps"
-5. Click the **Web icon** (`</>`)
-6. Register your app (e.g., "Monochrome Auth")
-7. Copy the `firebaseConfig` object:
+**PocketBase** é um banco de dados open-source leve e completo em um único arquivo executável. Ele fornece:
+
+- 📦 **Banco de dados SQLite embutido** — sem precisar instalar MySQL, PostgreSQL ou MongoDB
+- 🔐 **Sistema de autenticação integrado** — gerencia usuários nativamente
+- 📡 **API REST automática** — cria endpoints automaticamente para cada coleção
+- 📊 **Painel de administração web** — interface gráfica para gerenciar dados
+- ⚡ **Super leve** — um único binário de ~15MB que roda em qualquer lugar
+- 🔄 **Tempo real** — suporte a subscriptions em tempo real via SSE
+
+Pense nele como um "Firebase self-hosted" — você tem as mesmas funcionalidades, mas tudo roda na **sua máquina**, sem depender de serviços na nuvem.
+
+### 2.1 Instalar e Configurar
+
+1. Baixe o [PocketBase](https://pocketbase.io) e siga o guia de configuração
+2. Acesse a interface Admin do PocketBase (normalmente em `http://127.0.0.1:7284/_/`)
+
+### 2.2 Criar Coleções
+
+Crie duas coleções: `DB_users` e `public_playlists` (NÃO use a coleção "users" padrão)
+
+#### Campos de DB_users
+
+| Nome do Campo       | Tipo       | Descrição                                |
+| ------------------- | ---------- | ---------------------------------------- |
+| `firebase_id`       | Texto      | Vincula ao ID do usuário no Firebase     |
+| `lastUpdated`       | Número     | Timestamp da última atualização          |
+| `history`           | JSON       | Histórico de músicas ouvidas             |
+| `library`           | JSON       | Biblioteca salva do usuário              |
+| `user_playlists`    | JSON       | Playlists personalizadas do usuário      |
+| `user_folders`      | JSON       | Pastas de playlists do usuário           |
+| `deleted_playlists` | JSON       | Playlists removidas (soft-delete)        |
+
+#### Campos de public_playlists
+
+| Nome do Campo    | Tipo       | Descrição                                |
+| ---------------- | ---------- | ---------------------------------------- |
+| `firebase_id`    | Texto      | ID Firebase do criador                   |
+| `addedAt`        | Número     | Timestamp de criação                     |
+| `numberOfTracks` | Número     | Quantidade total de faixas               |
+| `OriginalId`     | Texto      | ID original da playlist                  |
+| `publishedAt`    | Número     | Timestamp de publicação                  |
+| `title`          | Texto      | Título da playlist                       |
+| `uid`            | Texto      | Identificador único                      |
+| `uuid`           | Texto      | UUID da playlist                         |
+| `tracks`         | JSON       | Dados das faixas da playlist             |
+| `image`          | URL        | Imagem de capa da playlist               |
+
+### 2.3 Configurar Regras de API
+
+Defina as regras de API para ambas as coleções permitirem acesso de leitura/escrita:
+
+**Regras de API de DB_users:**
+
+- Regra de Listagem/Pesquisa: `firebase_id = @request.query.f_id`
+- Regra de Visualização: `firebase_id = @request.query.f_id`
+- Regra de Criação: `firebase_id = @request.query.f_id`
+- Regra de Atualização: `firebase_id = @request.query.f_id`
+- Regra de Exclusão: `firebase_id = @request.query.f_id`
+
+**Regras de API de public_playlists:**
+
+- Regra de Listagem/Pesquisa: `uuid = @request.query.p_id`
+- Regra de Visualização: `id != ""`
+- Regra de Criação: `firebase_id = @request.query.f_id`
+- Regra de Atualização: `uid = @request.query.f_id`
+- Regra de Exclusão: `uid = @request.query.f_id`
+
+---
+
+## Passo 3: Configuração do Túnel Cloudflare
+
+Para tornar sua instância do PocketBase acessível de outros dispositivos com segurança:
+
+### 3.1 Criar uma Conta Cloudflare
+
+1. Cadastre-se no [Painel Cloudflare](https://dash.cloudflare.com)
+2. Configure o **Zero Trust** (plano gratuito disponível)
+
+### 3.2 Criar um Túnel
+
+1. No painel da Cloudflare, vá em **Zero Trust** → **Networks** → **Connectors**
+2. Selecione **Cloudflared**
+3. Dê um nome ao seu túnel (ex: `monochrome-database`)
+4. Siga o guia de instalação para o seu sistema operacional
+
+### 3.3 Configurar Hostname
+
+1. Na configuração do túnel, adicione um **Public Hostname**
+2. **Subdomínio:** Escolha um subdomínio (ex: `db` para `db.seudominio.com`)
+3. **Domínio:** Selecione seu domínio no dropdown
+4. **Serviço:** Selecione **HTTP**
+5. **URL:** Insira o endereço local do PocketBase (ex: `127.0.0.1:7284`)
+
+> ⚠️ **Nota:** A Cloudflare exige um domínio válido. Domínios `.pages.dev` gratuitos não funcionam para isso. Obtenha um domínio gratuito no [DigitalPlat](https://domain.digitalplat.org/).
+
+6. Salve a configuração
+
+Seu banco de dados agora estará acessível no domínio escolhido!
+
+---
+
+## Passo 4: Obtendo as Configurações
+
+### 4.1 Obter Configuração do Firebase
+
+1. No [Console Firebase](https://console.firebase.google.com), abra seu projeto
+2. Clique no ícone **⚙️ Configurações** ao lado de "Project Overview"
+3. Selecione **Project settings**
+4. Na aba **General**, role até "Your apps"
+5. Clique no **ícone Web** (`</>`)
+6. Registre seu app (ex: "Monochrome Auth")
+7. Copie o objeto `firebaseConfig`:
 
 ```javascript
 const firebaseConfig = {
     apiKey: 'AIzaSy...',
-    authDomain: 'your-project.firebaseapp.com',
-    databaseURL: 'https://your-project.firebaseio.com',
-    projectId: 'your-project',
-    storageBucket: 'your-project.appspot.com',
+    authDomain: 'seu-projeto.firebaseapp.com',
+    databaseURL: 'https://seu-projeto.firebaseio.com',
+    projectId: 'seu-projeto',
+    storageBucket: 'seu-projeto.appspot.com',
     messagingSenderId: '...',
     appId: '...',
 };
 ```
 
-> ⚠️ **Copy only the object content inside the curly braces `{ ... }`**
+> ⚠️ **Copie apenas o conteúdo do objeto dentro das chaves `{ ... }`**
 
-### 4.2 Get Database URL
+### 4.2 Obter URL do Banco de Dados
 
-Simply copy your PocketBase domain from Cloudflare (e.g., `https://db.yourdomain.com`)
-
----
-
-## Step 5: Linking with Monochrome
-
-Now configure Monochrome to use your custom backend:
-
-1. Open Monochrome in your browser
-2. Go to **Settings** (gear icon)
-3. Click **ADVANCED: Custom Account Database**
-4. Enter your configurations:
-    - **Database Config:** Your PocketBase domain (e.g., `https://db.yourdomain.com`)
-    - **Authentication Config:** The Firebase config JSON object from Step 4.1
-5. Click **Save**
-
-✅ **Done!** Your Monochrome instance is now connected to your custom database.
-
-> 📝 **Important:** Repeat Step 5 on every device where you want to use your custom database.
+Simplesmente copie seu domínio do PocketBase da Cloudflare (ex: `https://db.seudominio.com`)
 
 ---
 
-## Troubleshooting
+## Passo 5: Vinculando ao Monochrome
 
-### Cannot sign in
+Agora configure o Monochrome para usar seu backend personalizado:
 
-- Ensure your domain is added to Firebase's authorized domains
-- Check that the Firebase config JSON is correctly formatted
+1. Abra o Monochrome no seu navegador
+2. Vá em **Configurações** (ícone de engrenagem)
+3. Clique em **AVANÇADO: Banco de Dados de Conta Personalizado**
+4. Insira suas configurações:
+    - **Configuração do Banco de Dados:** Seu domínio do PocketBase (ex: `https://db.seudominio.com`)
+    - **Configuração de Autenticação:** O objeto JSON de configuração do Firebase do Passo 4.1
+5. Clique em **Salvar**
 
-### Database connection errors
+✅ **Pronto!** Sua instância do Monochrome agora está conectada ao seu banco de dados personalizado.
 
-- Verify your Cloudflare tunnel is running
-- Check that PocketBase is accessible at your domain
-- Ensure API rules are configured correctly
-
-### Data not syncing
-
-- Make sure you're signed in with the same account on all devices
-- Check the browser console for error messages
-- Verify your database collections have the correct fields
+> 📝 **Importante:** Repita o Passo 5 em cada dispositivo onde deseja usar seu banco de dados personalizado.
 
 ---
 
-## Security Tips
+## Solução de Problemas
 
-- Keep your Firebase API key secure (it's okay to expose it for client-side auth, but don't share it unnecessarily)
-- Regularly backup your PocketBase database
-- Use strong, unique passwords for your Cloudflare and Firebase accounts
-- Consider enabling 2FA on all accounts
+### Não consigo fazer login
+
+- Garanta que seu domínio está adicionado aos domínios autorizados do Firebase
+- Verifique se o JSON de configuração do Firebase está formatado corretamente
+
+### Erros de conexão com o banco de dados
+
+- Verifique se seu túnel da Cloudflare está rodando
+- Confirme que o PocketBase está acessível no seu domínio
+- Garanta que as regras de API estão configuradas corretamente
+
+### Dados não sincronizando
+
+- Certifique-se de que está logado com a mesma conta em todos os dispositivos
+- Verifique o console do navegador por mensagens de erro
+- Confirme que suas coleções do banco de dados têm os campos corretos
 
 ---
 
-## Need Help?
+## Dicas de Segurança
 
-- Join our [Discord community](https://monochrome.tf/discord) (if available)
-- Open an issue on [GitHub](https://github.com/monochrome-music/monochrome/issues)
-- Check existing [GitHub issues](https://github.com/monochrome-music/monochrome/issues) for solutions
+- Mantenha sua chave de API do Firebase segura (é ok expô-la para auth do lado do cliente, mas não compartilhe desnecessariamente)
+- Faça backup regularmente do seu banco de dados PocketBase
+- Use senhas fortes e únicas para suas contas da Cloudflare e Firebase
+- Considere habilitar autenticação de dois fatores (2FA) em todas as contas
+
+---
+
+## Precisa de Ajuda?
+
+- Entre na nossa [comunidade Discord](https://monochrome.tf/discord) (se disponível)
+- Abra uma issue no [GitHub](https://github.com/monochrome-music/monochrome/issues)
+- Verifique [issues existentes](https://github.com/monochrome-music/monochrome/issues) do GitHub por soluções

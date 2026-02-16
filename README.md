@@ -1,113 +1,113 @@
 <p align="center">
   <a href="https://monochrome.tf">
-    <img src="https://github.com/monochrome-music/monochrome/blob/main/public/assets/512.png?raw=true" alt="Monochrome Logo" width="150px">
+    <img src="https://github.com/monochrome-music/monochrome/blob/main/public/assets/512.png?raw=true" alt="Logo Monochrome" width="150px">
   </a>
 </p>
 
 <h1 align="center">Monochrome</h1>
 
 <p align="center">
-  <strong>An open-source, privacy-respecting, ad-free music app.</strong>
+  <strong>Um app de música open-source, que respeita sua privacidade e sem anúncios.</strong>
 </p>
 
 <p align="center">
   <a href="https://monochrome.tf">Website</a> •
-  <a href="https://ko-fi.com/monochromemusic">Donate</a> •
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
+  <a href="https://ko-fi.com/monochromemusic">Doar</a> •
+  <a href="#funcionalidades">Funcionalidades</a> •
+  <a href="#instalação">Instalação</a> •
+  <a href="#como-usar">Como Usar</a> •
   <a href="#self-hosting">Self-Hosting</a> •
-  <a href="CONTRIBUTE.md">Contributing</a>
+  <a href="CONTRIBUTE.md">Contribuir</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/monochrome-music/monochrome/stargazers">
-    <img src="https://img.shields.io/github/stars/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="GitHub stars">
+    <img src="https://img.shields.io/github/stars/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="Estrelas no GitHub">
   </a>
   <a href="https://github.com/monochrome-music/monochrome/forks">
-    <img src="https://img.shields.io/github/forks/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="GitHub forks">
+    <img src="https://img.shields.io/github/forks/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="Forks no GitHub">
   </a>
   <a href="https://github.com/monochrome-music/monochrome/issues">
-    <img src="https://img.shields.io/github/issues/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="GitHub issues">
+    <img src="https://img.shields.io/github/issues/monochrome-music/monochrome?style=for-the-badge&color=ffffff&labelColor=000000" alt="Issues no GitHub">
   </a>
 </p>
 
 ---
 
-## What is Monochrome?
+## O que é o Monochrome?
 
-**Monochrome** is an open-source, privacy-respecting, ad-free [TIDAL](https://tidal.com) web UI, built on top of [Hi-Fi](https://github.com/binimum/hifi-api). It provides a beautiful, minimalist interface for streaming high-quality music without the clutter of traditional streaming platforms.
+**Monochrome** é uma interface web open-source, que respeita sua privacidade e sem anúncios para [TIDAL](https://tidal.com), construída sobre o [Hi-Fi](https://github.com/binimum/hifi-api). Ele oferece uma interface bonita e minimalista para streaming de música em alta qualidade, sem a poluição visual das plataformas de streaming tradicionais.
 
 <p align="center">
   <a href="https://monochrome.tf/#album/90502209">
-    <img width="2559" height="1439" alt="image" src="https://github.com/user-attachments/assets/7973ea9f-c4aa-4c12-b476-f388f614db38"  alt="Monochrome UI" width="800">
+    <img width="2559" height="1439" alt="imagem" src="https://github.com/user-attachments/assets/7973ea9f-c4aa-4c12-b476-f388f614db38"  alt="Interface do Monochrome" width="800">
   </a>
 </p>
 
 ---
 
-## Features
+## Funcionalidades
 
-### Audio Quality
+### Qualidade de Áudio
 
-- High-quality Hi-Res/lossless audio streaming
-- Support for local music files
-- Intelligent API caching for improved performance
+- Streaming de áudio Hi-Res/lossless de alta qualidade
+- Suporte para arquivos de música locais
+- Cache inteligente de API para melhor desempenho
 
 ### Interface
 
-- Dark, minimalist interface optimized for focus
-- Customizable themes
-- Accurate and unique audio visualizer
-- Offline-capable Progressive Web App (PWA)
-- Media Session API integration for system controls
+- Interface escura e minimalista otimizada para foco
+- Temas personalizáveis
+- Visualizador de áudio preciso e único
+- Progressive Web App (PWA) com capacidade offline
+- Integração com Media Session API para controles do sistema
 
-### Library & Organization
+### Biblioteca e Organização
 
-- Recently Played tracking for easy history access
-- Comprehensive Personal Library for favorites
-- Queue management with shuffle and repeat modes
-- Playlist import from other platforms
-- Public playlists for social sharing
-- Smart recommendations for new songs, albums & artists
+- Rastreamento de Tocadas Recentemente para acesso fácil ao histórico
+- Biblioteca Pessoal completa para favoritos
+- Gerenciamento de fila com modos aleatório e repetição
+- Importação de playlists de outras plataformas
+- Playlists públicas para compartilhamento social
+- Recomendações inteligentes para novas músicas, álbuns e artistas
 
-### Lyrics & Metadata
+### Letras e Metadados
 
-- Lyrics support with karaoke mode
-- Genius integration for lyrics
-- Track downloads with automatic metadata embedding
+- Suporte a letras com modo karaokê
+- Integração com Genius para letras
+- Downloads de faixas com incorporação automática de metadados
 
-### Integrations
+### Integrações
 
-- Account system for cross-device syncing
-- Last.fm and ListenBrainz integration for scrobbling
-- Unreleased music from [ArtistGrid](https://artistgrid.cx)
-- Dynamic Discord Embeds
-- Multiple API instance support with failover
+- Sistema de contas para sincronização entre dispositivos
+- Integração com Last.fm e ListenBrainz para scrobbling
+- Músicas não lançadas via [ArtistGrid](https://artistgrid.cx)
+- Embeds dinâmicos do Discord
+- Suporte a múltiplas instâncias de API com failover
 
-### Power User Features
+### Funcionalidades Avançadas
 
-- Keyboard shortcuts for power users
+- Atalhos de teclado para usuários avançados
 
 ---
 
-## Quick Start
+## Início Rápido
 
-### Live Instance
+### Instância Online
 
-Our Recommended way to use monochrome is through our official instance:
+Nossa forma recomendada de usar o Monochrome é através da nossa instância oficial:
 
 **[monochrome.tf](https://monochrome.tf)**
 
-For alternative instances, check [INSTANCES.md](INSTANCES.md).
+Para instâncias alternativas, veja [INSTANCES.md](INSTANCES.md).
 
 ---
 
 ## Self-Hosting
 
-NOTE: Accounts wont work on self-hosted instances.
+NOTA: Contas não funcionam em instâncias self-hosted.
 
-### Option 1: Docker (Recommended)
+### Opção 1: Docker (Recomendado)
 
 ```bash
 git clone https://github.com/monochrome-music/monochrome.git
@@ -115,106 +115,121 @@ cd monochrome
 docker compose up -d
 ```
 
-Visit `http://localhost:3000`
+Acesse `http://localhost:8080`
 
-For PocketBase, development mode, and advanced setups, see [DOCKER.md](DOCKER.md).
+Para PocketBase, modo de desenvolvimento e configurações avançadas, veja [DOCKER.md](DOCKER.md).
 
-### Option 2: Manual Installation
+### Opção 2: Instalação Manual
 
-#### Prerequisites
+#### Pré-requisitos
 
-- [Node.js](https://nodejs.org/) (Version 20+ or 22+ recommended)
-- [Bun](https://bun.sh/) or [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/) (Versão 20+ ou 22+ recomendada)
+- [Bun](https://bun.sh/) ou [npm](https://www.npmjs.com/)
 
-#### Local Development
+#### Desenvolvimento Local
 
-1. **Clone the repository:**
+1. **Clone o repositório:**
 
     ```bash
     git clone https://github.com/monochrome-music/monochrome.git
     cd monochrome
     ```
 
-2. **Install dependencies:**
+2. **Instale as dependências:**
 
     ```bash
     bun install
-    # or
+    # ou
     npm install
     ```
 
-3. **Start the development server:**
+3. **Inicie o servidor de desenvolvimento:**
 
     ```bash
     bun run dev
-    # or
+    # ou
     npm run dev
     ```
 
-4. **Open your browser:**
-   Navigate to `http://localhost:5173/`
+4. **Abra seu navegador:**
+   Acesse `http://localhost:8080/`
 
-#### Building for Production
+#### Build para Produção
 
 ```bash
 bun run build
-# or
+# ou
 npm run build
 ```
 
----
+### Opção 3: Pterodactyl
 
-## Usage
+Use o script `start.sh` incluído para deploy no Pterodactyl:
 
-### Basic Usage
+```bash
+chmod +x start.sh
+./start.sh
+```
 
-1. Visit the [Website](https://monochrome.tf) or your local development server
-2. Search for your favorite artists, albums, or tracks
-3. Click play to start streaming
-4. Use the media controls to manage playback, queue, and volume
-
-### Keyboard Shortcuts
-
-| Shortcut | Action         |
-| -------- | -------------- |
-| `Space`  | Play/Pause     |
-| `→`      | Next track     |
-| `←`      | Previous track |
-| `↑`      | Volume up      |
-| `↓`      | Volume down    |
-| `M`      | Mute/Unmute    |
-| `L`      | Toggle lyrics  |
-| `F`      | Fullscreen     |
-| `/`      | Focus search   |
-
-### Account Features
-
-To sync your library, history, and playlists across devices:
-
-1. Click the "Accounts" Section
-2. Sign in with Google or Email
-3. Your data will automatically sync across all devices
+O script automaticamente:
+1. Baixa e instala o PocketBase
+2. Inicia o banco de dados na porta 7284
+3. Instala dependências Node.js
+4. Faz o build e serve o frontend na porta 8080
 
 ---
 
-## Contributing
+## Como Usar
 
-We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTE.md) for:
+### Uso Básico
 
-- Setting up your development environment
-- Code style and linting
-- Project structure
-- Commit message conventions
-- Deployment information
+1. Acesse o [Website](https://monochrome.tf) ou seu servidor de desenvolvimento local
+2. Pesquise seus artistas, álbuns ou faixas favoritos
+3. Clique em play para começar a ouvir
+4. Use os controles de mídia para gerenciar reprodução, fila e volume
+
+### Atalhos de Teclado
+
+| Atalho   | Ação              |
+| -------- | ----------------- |
+| `Espaço` | Play/Pausa        |
+| `→`      | Próxima faixa     |
+| `←`      | Faixa anterior    |
+| `↑`      | Aumentar volume   |
+| `↓`      | Diminuir volume   |
+| `M`      | Mutar/Desmutar    |
+| `L`      | Alternar letras   |
+| `F`      | Tela cheia        |
+| `/`      | Focar na pesquisa |
+
+### Funcionalidades de Conta
+
+Para sincronizar sua biblioteca, histórico e playlists entre dispositivos:
+
+1. Clique na seção "Contas"
+2. Faça login com Google ou Email
+3. Seus dados serão sincronizados automaticamente em todos os dispositivos
+
+---
+
+## Contribuindo
+
+Nós aceitamos contribuições da comunidade! Veja nosso [Guia de Contribuição](CONTRIBUTE.md) para:
+
+- Configuração do ambiente de desenvolvimento
+- Estilo de código e linting
+- Estrutura do projeto
+- Convenções de mensagens de commit
+- Informações de deploy
 
 ---
 
 <p align="center">
   <a href="https://fmhy.net/audio#streaming-sites">
-    <img src="https://raw.githubusercontent.com/monochrome-music/monochrome/refs/heads/main/public/assets/asseenonfmhy880x310.png" alt="As seen on FMHY" height="50">
+    <img src="https://raw.githubusercontent.com/monochrome-music/monochrome/refs/heads/main/public/assets/asseenonfmhy880x310.png" alt="Visto no FMHY" height="50">
   </a>
 </p>
 
 <p align="center">
-  Made with ❤️ by the Monochrome team
+  Feito com ❤️ pelo time Monochrome
 </p>

@@ -1,303 +1,304 @@
-# Contributing to Monochrome
+# Contribuindo para o Monochrome
 
-Thank you for your interest in contributing to Monochrome! This guide will help you get started with development, understand our codebase, and follow our contribution workflow.
-
----
-
-## Table of Contents
-
-- [Development Setup](#development-setup)
-- [Code Quality](#code-quality)
-- [Project Structure](#project-structure)
-- [Contributing Workflow](#contributing-workflow)
-- [Commit Message Guidelines](#commit-message-guidelines)
-- [Deployment](#deployment)
-- [Questions?](#questions)
+Obrigado pelo seu interesse em contribuir com o Monochrome! Este guia vai ajudá-lo a começar com o desenvolvimento, entender nossa base de código e seguir nosso fluxo de contribuição.
 
 ---
 
-## Development Setup
+## Índice
 
-### Prerequisites
+- [Configuração de Desenvolvimento](#configuração-de-desenvolvimento)
+- [Qualidade de Código](#qualidade-de-código)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Fluxo de Contribuição](#fluxo-de-contribuição)
+- [Diretrizes de Mensagens de Commit](#diretrizes-de-mensagens-de-commit)
+- [Deploy](#deploy)
+- [Dúvidas?](#dúvidas)
 
-- [Node.js](https://nodejs.org/) (Version 20+ or 22+ recommended)
-- [Bun](https://bun.sh/) (preferred) or [npm](https://www.npmjs.com/)
+---
 
-### Quick Start
+## Configuração de Desenvolvimento
 
-1. **Fork and clone the repository:**
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org/) (Versão 20+ ou 22+ recomendada)
+- [Bun](https://bun.sh/) (preferido) ou [npm](https://www.npmjs.com/)
+
+### Início Rápido
+
+1. **Faça fork e clone o repositório:**
 
     ```bash
-    git clone https://github.com/YOUR_USERNAME/monochrome.git
+    git clone https://github.com/SEU_USUARIO/monochrome.git
     cd monochrome
     ```
 
-2. **Install dependencies:**
+2. **Instale as dependências:**
 
     ```bash
     bun install
-    # or
+    # ou
     npm install
     ```
 
-3. **Start the development server:**
+3. **Inicie o servidor de desenvolvimento:**
 
     ```bash
     bun run dev
-    # or
+    # ou
     npm run dev
     ```
 
-4. **Open your browser:**
-   Navigate to `http://localhost:5173/`
+4. **Abra seu navegador:**
+   Acesse `http://localhost:8080/`
 
 ---
 
-## Code Quality
+## Qualidade de Código
 
-We maintain high code quality standards. All code must pass our linting checks before being merged.
+Mantemos altos padrões de qualidade de código. Todo código deve passar nas verificações de linting antes de ser mergeado.
 
-### Our Tool Stack
+### Nossas Ferramentas
 
-| Tool                               | Purpose            | Files    |
-| ---------------------------------- | ------------------ | -------- |
-| [ESLint](https://eslint.org/)      | JavaScript linting | `*.js`   |
-| [Stylelint](https://stylelint.io/) | CSS linting        | `*.css`  |
-| [HTMLHint](https://htmlhint.com/)  | HTML validation    | `*.html` |
-| [Prettier](https://prettier.io/)   | Code formatting    | All      |
+| Ferramenta                         | Propósito              | Arquivos |
+| ---------------------------------- | ---------------------- | -------- |
+| [ESLint](https://eslint.org/)      | Linting de JavaScript  | `*.js`   |
+| [Stylelint](https://stylelint.io/) | Linting de CSS         | `*.css`  |
+| [HTMLHint](https://htmlhint.com/)  | Validação de HTML      | `*.html` |
+| [Prettier](https://prettier.io/)   | Formatação de código   | Todos    |
 
-### Available Commands
+### Comandos Disponíveis
 
 ```bash
-# Check everything (runs all linters)
+# Verificar tudo (executa todos os linters)
 bun run lint
 
-# Auto-format all code
+# Auto-formatar todo o código
 bun run format
 
-# Fix JavaScript issues automatically
+# Corrigir problemas de JavaScript automaticamente
 bun run lint:js -- --fix
 
-# Fix CSS issues automatically
+# Corrigir problemas de CSS automaticamente
 bun run lint:css -- --fix
 
-# Check HTML
+# Verificar HTML
 bun run lint:html
 
-# Check specific file types
+# Verificar tipos de arquivo específicos
 bun run lint:js
 bun run lint:css
 ```
 
-> ⚠️ **Important:** A GitHub Action automatically runs `bun run lint` on every push and pull request. Please ensure all checks pass before committing.
+> ⚠️ **Importante:** Uma GitHub Action executa automaticamente `bun run lint` em cada push e pull request. Por favor, garanta que todas as verificações passem antes de commitar.
 
 ---
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 monochrome/
-├── 📁 js/                    # Application source code
-│   ├── components/          # UI components
-│   ├── utils/               # Utility functions
-│   ├── api/                 # API integration
+├── 📁 js/                    # Código fonte da aplicação
+│   ├── components/          # Componentes de UI
+│   ├── utils/               # Funções utilitárias
+│   ├── api/                 # Integração com API
 │   └── ...
-├── 📁 public/               # Static assets
-│   ├── assets/             # Images, icons, fonts
-│   ├── manifest.json       # PWA manifest
-│   └── instances.json      # API instances configuration
-├── 📄 index.html           # Application entry point
-├── 📄 vite.config.js       # Build and PWA configuration
-├── 📄 package.json         # Dependencies and scripts
-└── 📄 README.md            # Project documentation
+├── 📁 public/               # Assets estáticos
+│   ├── assets/             # Imagens, ícones, fontes
+│   ├── manifest.json       # Manifesto PWA
+│   └── instances.json      # Configuração de instâncias da API
+├── 📄 index.html           # Ponto de entrada da aplicação
+├── 📄 vite.config.js       # Configuração de build e PWA
+├── 📄 package.json         # Dependências e scripts
+├── 📄 start.sh             # Script de inicialização para Pterodactyl
+└── 📄 README.md            # Documentação do projeto
 ```
 
-### Key Directories
+### Diretórios Principais
 
-- **`/js`** - All JavaScript source code
-    - Keep modules focused and single-purpose
-    - Use ES6+ features
-    - Add JSDoc comments for complex functions
+- **`/js`** - Todo o código fonte JavaScript
+    - Mantenha módulos focados e com propósito único
+    - Use recursos ES6+
+    - Adicione comentários JSDoc para funções complexas
 
-- **`/public`** - Static assets copied directly to build
-    - Images should be optimized before adding
-    - Keep file sizes reasonable
-    - Use appropriate formats (WebP where possible)
+- **`/public`** - Assets estáticos copiados diretamente para o build
+    - Imagens devem ser otimizadas antes de adicionar
+    - Mantenha tamanhos de arquivo razoáveis
+    - Use formatos apropriados (WebP quando possível)
 
 ---
 
-## Contributing Workflow
+## Fluxo de Contribuição
 
-### 1. Create a Branch
+### 1. Crie uma Branch
 
 ```bash
-git checkout -b feature/your-feature-name
-# or
-git checkout -b fix/description-of-fix
+git checkout -b feature/nome-da-sua-funcionalidade
+# ou
+git checkout -b fix/descrição-da-correção
 ```
 
-### 2. Make Your Changes
+### 2. Faça Suas Alterações
 
-- Follow existing code style
-- Write clear, self-documenting code
-- Add comments for complex logic
-- Update documentation if needed
+- Siga o estilo de código existente
+- Escreva código claro e auto-documentável
+- Adicione comentários para lógica complexa
+- Atualize a documentação se necessário
 
-### 3. Test Your Changes
+### 3. Teste Suas Alterações
 
 ```bash
-# Run all linters
+# Execute todos os linters
 bun run lint
 
-# Test the build
+# Teste o build
 bun run build
 ```
 
-### 4. Commit Your Changes
+### 4. Faça Commit das Suas Alterações
 
-Follow our [commit message guidelines](#commit-message-guidelines).
+Siga nossas [diretrizes de mensagens de commit](#diretrizes-de-mensagens-de-commit).
 
 ```bash
 git add .
-git commit -m "feat(player): add keyboard shortcut for loop toggle"
+git commit -m "feat(player): adicionar atalho de teclado para alternar loop"
 ```
 
-### 5. Push and Create a Pull Request
+### 5. Faça Push e Crie um Pull Request
 
 ```bash
-git push origin feature/your-feature-name
+git push origin feature/nome-da-sua-funcionalidade
 ```
 
-Then open a pull request on GitHub with:
+Então abra um pull request no GitHub com:
 
-- Clear title describing the change
-- Detailed description of what changed and why
-- Reference any related issues
+- Título claro descrevendo a mudança
+- Descrição detalhada do que mudou e por quê
+- Referências a issues relacionadas
 
 ---
 
-## Commit Message Guidelines
+## Diretrizes de Mensagens de Commit
 
-We use [Conventional Commits](https://www.conventionalcommits.org/) for clear, structured commit messages.
+Usamos [Conventional Commits](https://www.conventionalcommits.org/) para mensagens de commit claras e estruturadas.
 
-### Format
+### Formato
 
 ```
-<type>(<scope>): <description>
+<tipo>(<escopo>): <descrição>
 
-[optional body]
+[corpo opcional]
 
-[optional footer]
+[rodapé opcional]
 ```
 
-### Types
+### Tipos
 
-| Type       | Description                                       |
-| ---------- | ------------------------------------------------- |
-| `feat`     | New feature                                       |
-| `fix`      | Bug fix                                           |
-| `docs`     | Documentation changes                             |
-| `style`    | Code style changes (formatting, semicolons, etc.) |
-| `refactor` | Code refactoring without changing behavior        |
-| `perf`     | Performance improvements                          |
-| `test`     | Adding or updating tests                          |
-| `chore`    | Maintenance tasks (dependencies, build, etc.)     |
+| Tipo       | Descrição                                              |
+| ---------- | ------------------------------------------------------ |
+| `feat`     | Nova funcionalidade                                    |
+| `fix`      | Correção de bug                                        |
+| `docs`     | Mudanças na documentação                               |
+| `style`    | Mudanças de estilo de código (formatação, ponto e vírgula, etc.) |
+| `refactor` | Refatoração de código sem mudar comportamento          |
+| `perf`     | Melhorias de desempenho                                |
+| `test`     | Adição ou atualização de testes                        |
+| `chore`    | Tarefas de manutenção (dependências, build, etc.)      |
 
-### Scopes
+### Escopos
 
-Common scopes in our project:
+Escopos comuns no nosso projeto:
 
-- `player` - Audio player functionality
-- `ui` - User interface components
-- `api` - API integration
-- `library` - Library management
-- `playlists` - Playlist functionality
-- `lyrics` - Lyrics display
-- `downloads` - Download functionality
-- `auth` - Authentication
-- `pwa` - Progressive Web App features
-- `settings` - Settings/preferences
-- `theme` - Theming system
+- `player` - Funcionalidade do player de áudio
+- `ui` - Componentes de interface
+- `api` - Integração com API
+- `library` - Gerenciamento de biblioteca
+- `playlists` - Funcionalidade de playlists
+- `lyrics` - Exibição de letras
+- `downloads` - Funcionalidade de downloads
+- `auth` - Autenticação
+- `pwa` - Funcionalidades de Progressive Web App
+- `settings` - Configurações/preferências
+- `theme` - Sistema de temas
 
-### Examples
+### Exemplos
 
 ```bash
-# Feature addition
-feat(playlists): add shuffle playlist button
+# Adição de funcionalidade
+feat(playlists): adicionar botão de embaralhar playlist
 
-# Bug fix
-fix(metadata): resolve corrupted Hi-res metadata issue
+# Correção de bug
+fix(metadata): resolver problema de metadados Hi-res corrompidos
 
-# Refactoring
-refactor(downloads): simplify cancel download logic
+# Refatoração
+refactor(downloads): simplificar lógica de cancelar download
 
-# Documentation
-docs(README): improve installation instructions
+# Documentação
+docs(README): melhorar instruções de instalação
 
-# Maintenance
-chore(deps): bump lyrics package to fix vulnerability
+# Manutenção
+chore(deps): atualizar pacote de letras para corrigir vulnerabilidade
 
-# Style changes
-style(player): fix indentation in audio controls
+# Mudanças de estilo
+style(player): corrigir indentação nos controles de áudio
 ```
 
-### Tips
+### Dicas
 
-- Use the present tense ("add feature" not "added feature")
-- Use imperative mood ("move cursor to..." not "moves cursor to...")
-- Don't capitalize the first letter
-- No period at the end
-- Keep the first line under 72 characters
+- Use o tempo presente ("adicionar funcionalidade" e não "adicionou funcionalidade")
+- Use modo imperativo ("mover cursor para..." e não "move cursor para...")
+- Não coloque letra maiúscula na primeira letra
+- Sem ponto final no final
+- Mantenha a primeira linha com menos de 72 caracteres
 
-📋 **Cheat Sheet:** [Conventional Commits Cheat Sheet](https://gist.github.com/Zekfad/f51cb06ac76e2457f11c80ed705c95a3)
+📋 **Cola Rápida:** [Conventional Commits Cheat Sheet](https://gist.github.com/Zekfad/f51cb06ac76e2457f11c80ed705c95a3)
 
 ---
 
-## Deployment
+## Deploy
 
-Deployment is fully automated via **Cloudflare Pages**.
+O deploy é totalmente automatizado via **Cloudflare Pages**.
 
-### How It Works
+### Como Funciona
 
-1. Push changes to the `main` branch
-2. Cloudflare automatically builds and deploys
-3. Changes are live within minutes
+1. Faça push das mudanças para a branch `main`
+2. A Cloudflare automaticamente compila e faz deploy
+3. As mudanças ficam online em minutos
 
-### Configuration Notes
+### Notas de Configuração
 
-The project uses a **relative base path** (`./`) in `vite.config.js`. This allows the same build artifact to work on both:
+O projeto usa um **caminho base relativo** (`./`) no `vite.config.js`. Isso permite que o mesmo artefato de build funcione em ambos:
 
-- **Cloudflare Pages** (served from root)
-- **GitHub Pages** (served from `/monochrome/`)
+- **Cloudflare Pages** (servido da raiz)
+- **GitHub Pages** (servido de `/monochrome/`)
 
-Hash routing is used to ensure compatibility across all hosting platforms.
+Roteamento por hash é usado para garantir compatibilidade em todas as plataformas de hospedagem.
 
-### Manual Deployment
+### Deploy Manual
 
-If you need to deploy manually:
+Se precisar fazer deploy manualmente:
 
 ```bash
-# Build for production
+# Build para produção
 bun run build
 
-# The `dist/` folder contains the deployable files
+# A pasta `dist/` contém os arquivos para deploy
 ```
 
 ---
 
-## Questions?
+## Dúvidas?
 
-- 💬 Join our community discussions
-- 🐛 Open an issue for bugs or feature requests
-- 📧 Contact the maintainers
+- 💬 Participe das discussões da comunidade
+- 🐛 Abra uma issue para bugs ou pedidos de funcionalidades
+- 📧 Entre em contato com os mantenedores
 
 ---
 
-## Code of Conduct
+## Código de Conduta
 
-- Be respectful and inclusive
-- Welcome newcomers and help them learn
-- Focus on constructive feedback
-- Respect different viewpoints and experiences
+- Seja respeitoso e inclusivo
+- Acolha novatos e ajude-os a aprender
+- Foque em feedback construtivo
+- Respeite diferentes pontos de vista e experiências
 
-Thank you for contributing to Monochrome!
+Obrigado por contribuir com o Monochrome!

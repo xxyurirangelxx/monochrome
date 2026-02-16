@@ -17,9 +17,13 @@ export default defineConfig(({ mode }) => {
             exclude: ['pocketbase'],
         },
         server: {
+            port: 8080,
             fs: {
                 allow: ['.', 'node_modules'],
             },
+        },
+        preview: {
+            port: 8080,
         },
         build: {
             outDir: 'dist',

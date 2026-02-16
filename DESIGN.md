@@ -1,36 +1,36 @@
-# Monochrome Design System
+# Sistema de Design do Monochrome
 
-A comprehensive design language for consistent UI/UX across the Monochrome music streaming application.
+Uma linguagem de design abrangente para UI/UX consistente em toda a aplicação de streaming de música Monochrome.
 
-## Design Tokens
+## Tokens de Design
 
-### Typography Scale
+### Escala Tipográfica
 
-| Token         | Value           | Usage                        |
-| ------------- | --------------- | ---------------------------- |
-| `--text-xs`   | 0.75rem (12px)  | Captions, badges, timestamps |
-| `--text-sm`   | 0.875rem (14px) | Secondary text, labels       |
-| `--text-base` | 1rem (16px)     | Body text (default)          |
-| `--text-md`   | 1.125rem (18px) | Lead paragraphs              |
-| `--text-lg`   | 1.25rem (20px)  | Small headings               |
-| `--text-xl`   | 1.5rem (24px)   | H4, card titles              |
-| `--text-2xl`  | 1.875rem (30px) | H3                           |
-| `--text-3xl`  | 2.25rem (36px)  | H2                           |
-| `--text-4xl`  | 3rem (48px)     | H1                           |
-| `--text-5xl`  | 3.75rem (60px)  | Display text                 |
+| Token         | Valor           | Uso                              |
+| ------------- | --------------- | -------------------------------- |
+| `--text-xs`   | 0.75rem (12px)  | Legendas, badges, timestamps     |
+| `--text-sm`   | 0.875rem (14px) | Texto secundário, rótulos        |
+| `--text-base` | 1rem (16px)     | Texto do corpo (padrão)          |
+| `--text-md`   | 1.125rem (18px) | Parágrafos de destaque           |
+| `--text-lg`   | 1.25rem (20px)  | Títulos pequenos                 |
+| `--text-xl`   | 1.5rem (24px)   | H4, títulos de cards             |
+| `--text-2xl`  | 1.875rem (30px) | H3                               |
+| `--text-3xl`  | 2.25rem (36px)  | H2                               |
+| `--text-4xl`  | 3rem (48px)     | H1                               |
+| `--text-5xl`  | 3.75rem (60px)  | Texto display                    |
 
-### Font Weights
+### Pesos de Fonte
 
-| Token             | Value |
+| Token             | Valor |
 | ----------------- | ----- |
 | `--font-normal`   | 400   |
 | `--font-medium`   | 500   |
 | `--font-semibold` | 600   |
 | `--font-bold`     | 700   |
 
-### Spacing Scale
+### Escala de Espaçamento
 
-| Token        | Value   | Pixels |
+| Token        | Valor   | Pixels |
 | ------------ | ------- | ------ |
 | `--space-1`  | 0.25rem | 4px    |
 | `--space-2`  | 0.5rem  | 8px    |
@@ -43,43 +43,43 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 | `--space-12` | 3rem    | 48px   |
 | `--space-16` | 4rem    | 64px   |
 
-### Border Radius Scale
+### Escala de Borda Arredondada
 
-| Token           | Value  | Usage                   |
-| --------------- | ------ | ----------------------- |
-| `--radius-none` | 0      | Sharp corners           |
-| `--radius-xs`   | 2px    | Small badges, tags      |
-| `--radius-sm`   | 4px    | Inputs, small buttons   |
-| `--radius-md`   | 8px    | Cards, panels (default) |
-| `--radius-lg`   | 12px   | Large cards, modals     |
-| `--radius-xl`   | 16px   | Hero elements           |
-| `--radius-2xl`  | 24px   | Extra large elements    |
-| `--radius-full` | 9999px | Circles, pills          |
+| Token           | Valor  | Uso                          |
+| --------------- | ------ | ---------------------------- |
+| `--radius-none` | 0      | Cantos retos                 |
+| `--radius-xs`   | 2px    | Badges pequenos, tags        |
+| `--radius-sm`   | 4px    | Inputs, botões pequenos      |
+| `--radius-md`   | 8px    | Cards, painéis (padrão)      |
+| `--radius-lg`   | 12px   | Cards grandes, modais        |
+| `--radius-xl`   | 16px   | Elementos hero               |
+| `--radius-2xl`  | 24px   | Elementos extra grandes      |
+| `--radius-full` | 9999px | Círculos, pills              |
 
-### Transition Timing
+### Temporização de Transições
 
-| Token                | Value |
+| Token                | Valor |
 | -------------------- | ----- |
 | `--duration-instant` | 0ms   |
 | `--duration-fast`    | 150ms |
 | `--duration-normal`  | 300ms |
 | `--duration-slow`    | 500ms |
 
-### Easing Functions
+### Funções de Easing
 
-| Token             | Value                                   | Usage                 |
-| ----------------- | --------------------------------------- | --------------------- |
-| `--ease-linear`   | linear                                  | Continuous animations |
-| `--ease-in`       | cubic-bezier(0.4, 0, 1, 1)              | Entering elements     |
-| `--ease-out`      | cubic-bezier(0, 0, 0.2, 1)              | Exiting elements      |
-| `--ease-in-out`   | cubic-bezier(0.4, 0, 0.2, 1)            | Standard transitions  |
-| `--ease-out-back` | cubic-bezier(0.34, 1.56, 0.64, 1)       | Bouncy effects        |
-| `--ease-elastic`  | cubic-bezier(0.68, -0.55, 0.265, 1.55)  | Playful animations    |
-| `--ease-spring`   | cubic-bezier(0.175, 0.885, 0.32, 1.275) | Snappy interactions   |
+| Token             | Valor                                   | Uso                     |
+| ----------------- | --------------------------------------- | ----------------------- |
+| `--ease-linear`   | linear                                  | Animações contínuas     |
+| `--ease-in`       | cubic-bezier(0.4, 0, 1, 1)              | Elementos entrando      |
+| `--ease-out`      | cubic-bezier(0, 0, 0.2, 1)              | Elementos saindo        |
+| `--ease-in-out`   | cubic-bezier(0.4, 0, 0.2, 1)            | Transições padrão       |
+| `--ease-out-back` | cubic-bezier(0.34, 1.56, 0.64, 1)       | Efeitos de quique       |
+| `--ease-elastic`  | cubic-bezier(0.68, -0.55, 0.265, 1.55)  | Animações divertidas    |
+| `--ease-spring`   | cubic-bezier(0.175, 0.885, 0.32, 1.275) | Interações ágeis        |
 
-### Shadows
+### Sombras
 
-| Token            | Value                                                               |
+| Token            | Valor                                                               |
 | ---------------- | ------------------------------------------------------------------- |
 | `--shadow-none`  | none                                                                |
 | `--shadow-xs`    | 0 1px 2px 0 rgb(0 0 0 / 0.05)                                       |
@@ -91,27 +91,27 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 | `--shadow-inner` | inset 0 2px 4px 0 rgb(0 0 0 / 0.05)                                 |
 | `--shadow-glow`  | 0 0 20px rgb(var(--highlight-rgb) / 0.5)                            |
 
-### Z-Index Scale
+### Escala de Z-Index
 
-| Token          | Value | Usage           |
-| -------------- | ----- | --------------- |
-| `--z-hide`     | -1    | Hidden elements |
-| `--z-base`     | 0     | Default         |
-| `--z-docked`   | 10    | Docked elements |
-| `--z-dropdown` | 1000  | Dropdowns       |
-| `--z-sticky`   | 1100  | Sticky headers  |
-| `--z-banner`   | 1200  | Banners         |
-| `--z-overlay`  | 1300  | Overlays        |
-| `--z-modal`    | 1400  | Modals          |
-| `--z-popover`  | 1500  | Popovers        |
-| `--z-tooltip`  | 1600  | Tooltips        |
-| `--z-toast`    | 1700  | Toasts          |
+| Token          | Valor | Uso                |
+| -------------- | ----- | ------------------ |
+| `--z-hide`     | -1    | Elementos ocultos  |
+| `--z-base`     | 0     | Padrão             |
+| `--z-docked`   | 10    | Elementos fixados  |
+| `--z-dropdown` | 1000  | Dropdowns          |
+| `--z-sticky`   | 1100  | Cabeçalhos fixos   |
+| `--z-banner`   | 1200  | Banners            |
+| `--z-overlay`  | 1300  | Overlays           |
+| `--z-modal`    | 1400  | Modais             |
+| `--z-popover`  | 1500  | Popovers           |
+| `--z-tooltip`  | 1600  | Tooltips           |
+| `--z-toast`    | 1700  | Toasts             |
 
-## Component Tokens
+## Tokens de Componentes
 
-### Buttons
+### Botões
 
-| Token              | Value                         |
+| Token              | Valor                         |
 | ------------------ | ----------------------------- |
 | `--btn-height-sm`  | 32px                          |
 | `--btn-height-md`  | 40px                          |
@@ -122,22 +122,22 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 
 ### Inputs
 
-| Token             | Value                         |
+| Token             | Valor                         |
 | ----------------- | ----------------------------- |
 | `--input-height`  | 40px                          |
 | `--input-padding` | var(--space-3) var(--space-4) |
 
 ### Cards
 
-| Token            | Value            |
+| Token            | Valor            |
 | ---------------- | ---------------- |
 | `--card-padding` | var(--space-4)   |
 | `--card-gap`     | var(--space-4)   |
 | `--card-radius`  | var(--radius-lg) |
 
-### Modals
+### Modais
 
-| Token                  | Value            |
+| Token                  | Valor            |
 | ---------------------- | ---------------- |
 | `--modal-padding`      | var(--space-6)   |
 | `--modal-radius`       | var(--radius-xl) |
@@ -146,9 +146,9 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 | `--modal-max-width-lg` | 600px            |
 | `--modal-max-width-xl` | 800px            |
 
-## Utility Classes
+## Classes Utilitárias
 
-### Typography
+### Tipografia
 
 ```css
 .text-xs, .text-sm, .text-base, .text-md, .text-lg, .text-xl, .text-2xl, .text-3xl, .text-4xl
@@ -156,7 +156,7 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 .leading-none, .leading-tight, .leading-snug, .leading-normal, .leading-relaxed
 ```
 
-### Spacing
+### Espaçamento
 
 ```css
 .m-0, .m-1, .m-2, .m-3, .m-4, .m-6, .m-8
@@ -172,19 +172,19 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 .gap-0, .gap-1, .gap-2, .gap-3, .gap-4, .gap-6
 ```
 
-### Border Radius
+### Borda Arredondada
 
 ```css
 .rounded-none, .rounded-xs, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-full
 ```
 
-### Shadows
+### Sombras
 
 ```css
 .shadow-none, .shadow-xs, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl
 ```
 
-### Display & Flex
+### Display e Flex
 
 ```css
 .block, .inline-block, .inline, .flex, .inline-flex, .grid, .hidden
@@ -194,7 +194,7 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 .flex-1, .flex-auto, .flex-none
 ```
 
-### Text
+### Texto
 
 ```css
 .text-left, .text-center, .text-right
@@ -203,37 +203,37 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 .text-muted, .text-highlight
 ```
 
-### Other
+### Outros
 
 ```css
 .cursor-pointer, .cursor-default
 .transition-fast, .transition-normal, .transition-slow
 ```
 
-## Best Practices
+## Boas Práticas
 
-### DO:
+### FAÇA:
 
-- Use design tokens for all values
-- Use utility classes for common patterns
-- Keep component styles in CSS, not inline JS
-- Use semantic HTML elements
-- Maintain consistent spacing using the spacing scale
+- Use tokens de design para todos os valores
+- Use classes utilitárias para padrões comuns
+- Mantenha estilos de componentes no CSS, não inline no JS
+- Use elementos HTML semânticos
+- Mantenha espaçamento consistente usando a escala de espaçamento
 
-### DON'T:
+### NÃO FAÇA:
 
-- Use hardcoded pixel values
-- Use inline styles in JavaScript
-- Mix different border-radius values arbitrarily
-- Skip the spacing scale with custom values
-- Use arbitrary font sizes outside the type scale
+- Usar valores de pixel fixos
+- Usar estilos inline no JavaScript
+- Misturar diferentes valores de border-radius arbitrariamente
+- Pular a escala de espaçamento com valores customizados
+- Usar tamanhos de fonte arbitrários fora da escala tipográfica
 
-## Migration Guide
+## Guia de Migração
 
-### From hardcoded values:
+### De valores fixos:
 
 ```css
-/* Before */
+/* Antes */
 .element {
     padding: 16px;
     font-size: 14px;
@@ -241,7 +241,7 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
     margin-bottom: 24px;
 }
 
-/* After */
+/* Depois */
 .element {
     padding: var(--space-4);
     font-size: var(--text-sm);
@@ -250,23 +250,23 @@ A comprehensive design language for consistent UI/UX across the Monochrome music
 }
 ```
 
-### From inline styles:
+### De estilos inline:
 
 ```javascript
-// Before
+// Antes
 element.style.cssText = 'display: flex; gap: 8px; padding: 16px;';
 
-// After
+// Depois
 element.classList.add('flex', 'gap-2', 'p-4');
 ```
 
-## Themes
+## Temas
 
-The design system supports multiple themes. Each theme defines color variables while maintaining consistent spacing, typography, and other design tokens.
+O sistema de design suporta múltiplos temas. Cada tema define variáveis de cor enquanto mantém espaçamento, tipografia e outros tokens de design consistentes.
 
-Available themes:
+Temas disponíveis:
 
-- `monochrome` (default)
+- `monochrome` (padrão)
 - `dark`
 - `ocean`
 - `purple`
@@ -277,8 +277,8 @@ Available themes:
 - `latte`
 - `white`
 
-## Notes
+## Observações
 
-- The `--highlight-rgb` variable must be in comma-separated RGB format (e.g., `245, 245, 245`) for use with `rgb()` function
-- All spacing values are in rem units for accessibility
-- The design system is mobile-first and responsive
+- A variável `--highlight-rgb` deve estar no formato RGB separado por vírgulas (ex: `245, 245, 245`) para uso com a função `rgb()`
+- Todos os valores de espaçamento estão em unidades rem para acessibilidade
+- O sistema de design é mobile-first e responsivo

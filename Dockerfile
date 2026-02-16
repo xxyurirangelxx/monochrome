@@ -3,23 +3,23 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
-# wget is needed for Docker healthcheck
+# wget é necessário para o healthcheck do Docker
 RUN apk add --no-cache wget
 
-# Copy package files first for caching
+# Copiar arquivos de pacotes primeiro para cache
 COPY package.json package-lock.json ./
 
-# Install dependencies
+# Instalar dependências
 RUN npm install
 
-# Copy the rest of the project
+# Copiar o restante do projeto
 COPY . .
 
-# Build the project
+# Build do projeto
 RUN npm run build
 
-# Expose Vite preview port
-EXPOSE 4173
+# Expor porta do Vite preview
+EXPOSE 8080
 
-# Run the built project
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+# Executar o projeto buildado
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "8080"]
