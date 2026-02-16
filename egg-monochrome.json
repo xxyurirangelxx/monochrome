@@ -35,7 +35,7 @@
             "name": "Repositorio Git",
             "description": "URL do SEU repositorio Git (seu fork do Monochrome). Ex: https:\/\/github.com\/SEU_USUARIO\/monochrome",
             "env_variable": "GIT_ADDRESS",
-            "default_value": "",
+            "default_value": "https:\/\/github.com\/xxyurirangelxx\/monochrome",
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string",
